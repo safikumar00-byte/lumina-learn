@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Small theme/typography tweaks kept intentionally minimal; further prose overrides live in components */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}

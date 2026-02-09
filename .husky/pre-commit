@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+set -e
+
+# Ensure course index files are up-to-date before commit
+echo "[husky] regenerating course indexes..."
+npm run content:update-index
+
+# Stage any changed index.md files
+git add content/courses/*/index.md || true
+
+exit 0
