@@ -10,7 +10,8 @@
     "prepare": "husky install",
     "content:update-index": "node scripts/update-course-index.cjs",
     "content:check": "node scripts/check_content.cjs",
-    "content:watch-index": "node scripts/watch-index.cjs"
+    "content:watch-index": "node scripts/watch-index.cjs",
+    "content:autostage": "node scripts/watch-and-stage.cjs"
   },
   "dependencies": {
     "lucide-react": "^0.563.0",

@@ -12,3 +12,4 @@ slug: japanese-language-culture
 - **Lesson 3:** [What are the essential Japanese Greetings & Expressions?](./greetings-expressions.md)
 - **Lesson 4:** [How to Introduce Yourself in Japanese (Hiragana, Particles & Basic Conversation)](./introduce-yourself-japanese-hiragana-particles.md)
 - **Lesson 5:** [What is Basic Sentence Structure (SOV) in Japanese?](./basic-sentence-structure.md)
+- **Lesson 6:** [Hiragana M, Y, R Series, Nationalities & Basic Question Patterns](./hiragana-m-y-r-series-nationalities-questions.md)
