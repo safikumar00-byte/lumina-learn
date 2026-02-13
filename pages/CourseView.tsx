@@ -61,7 +61,10 @@ const CourseView: React.FC = () => {
           <div className="relative group">
             <div className="aspect-video bg-zinc-200 dark:bg-zinc-800 rounded-2xl overflow-hidden border-8 border-white dark:border-zinc-900 shadow-2xl">
               <img
-                src={course.thumbnail}
+                src={
+                  course.thumbnail ||
+                  `https://picsum.photos/seed/${course.id}/800/450`
+                }
                 alt={course.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />

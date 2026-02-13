@@ -82,7 +82,10 @@ const Home: React.FC = () => {
             >
               <div className="aspect-video relative overflow-hidden">
                 <img
-                  src={course.thumbnail}
+                  src={
+                    course.thumbnail ||
+                    `https://picsum.photos/seed/${course.id}/800/450`
+                  }
                   alt={course.title}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                 />

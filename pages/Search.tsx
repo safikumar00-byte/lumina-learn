@@ -6,20 +6,26 @@ import { LESSONS, COURSES } from "../lib/contentAdapter";
 const Search: React.FC = () => {
   const [query, setQuery] = useState("");
 
-  const filteredLessons = LESSONS.filter(
-    (l) =>
-      l.frontmatter.title.toLowerCase().includes(query.toLowerCase()) ||
-      l.frontmatter.description.toLowerCase().includes(query.toLowerCase()) ||
-      l.frontmatter.keywords.some((t) =>
-        t.toLowerCase().includes(query.toLowerCase()),
-      ),
-  );
+  const q = query.toLowerCase();
 
-  const filteredCourses = COURSES.filter(
-    (c) =>
-      c.title.toLowerCase().includes(query.toLowerCase()) ||
-      c.description.toLowerCase().includes(query.toLowerCase()),
-  );
+  const filteredLessons = LESSONS.filter((l) => {
+    const title = (l.frontmatter && l.frontmatter.title) || "";
+    const description = (l.frontmatter && l.frontmatter.description) || "";
+    const keywords = (l.frontmatter && l.frontmatter.keywords) || [];
+    return (
+      title.toLowerCase().includes(q) ||
+      description.toLowerCase().includes(q) ||
+      keywords.some((t: string) => (t || "").toLowerCase().includes(q))
+    );
+  });
+
+  const filteredCourses = COURSES.filter((c) => {
+    const title = c.title || "";
+    const description = c.description || "";
+    return (
+      title.toLowerCase().includes(q) || description.toLowerCase().includes(q)
+    );
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">

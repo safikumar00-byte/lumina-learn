@@ -1,19 +1,18 @@
+---
 type: lesson
-title: How to Introduce Yourself in Japanese (Hiragana, Particles & Basic Conversation)
-description: Learn how to introduce yourself in Japanese using hiragana, particles wa and ka, simple sentence patterns, and essential beginner vocabulary.
+title: "How to Introduce Yourself in Japanese (Hiragana, Particles & Basic Conversation)"
+description: "Learn how to introduce yourself in Japanese using hiragana, particles wa and ka, simple sentence patterns, and essential beginner vocabulary."
 slug: introduce-yourself-japanese-hiragana-particles
-courseSlug: japanese-for-beginners
+courseSlug: japanese-language-culture
 keywords:
-
-introduce yourself in Japanese
-
-hiragana basics
-
-Japanese particles wa and ka
-canonical: /lessons/japanese-for-beginners/introduce-yourself-japanese-hiragana-particles
+  - introduce yourself in Japanese
+  - hiragana basics
+  - Japanese particles wa and ka
+canonical: /lessons/japanese-language-culture/introduce-yourself-japanese-hiragana-particles
 order: 2
 publishDate: 2026-02-13
 thumbnail: japanese-self-introduction-minimal-illustration
+---
 
 How to Introduce Yourself in Japanese (Hiragana, Particles & Basic Conversation)
 
