@@ -1,23 +1,21 @@
+---
 type: lesson
 title: "How Do You Introduce Yourself in Japanese?"
-slug: how-do-you-introduce-yourself-in-japanese
+slug: "how-do-you-introduce-yourself-in-japanese"
 description: "Learn how to introduce yourself in Japanese using hajimemashite, watashi wa, desu, and basic hiragana."
-courseSlug: noc19-hs52
-keywords:
-
-self introduction in japanese
-
-hajimemashite meaning
-
-watashi wa grammar
-
-japanese hiragana basics
-
-japanese particle ka
-canonical: /lessons/noc19-hs52/how-do-you-introduce-yourself-in-japanese
+courseSlug: "japanese-language-culture"
+week: 1
+videoNumber: 2
+level: "Beginner"
 order: 2
-publishDate: 2026-02-20
-thumbnail: thumbnail.jpg
+publishDate: "2026-02-20"
+keywords:
+  - Self introduction in Japanese
+  - Hajimemashite meaning
+  - Watashi wa grammar
+  - Japanese hiragana basics
+  - Japanese particle ka
+---
 
 How Do You Introduce Yourself in Japanese?
 
