@@ -14,6 +14,11 @@ publishDate: 2023-10-01
 
 # How do the Three Writing Systems work in Japanese?
 
+This lesson covers the core idea and practical examples in a concise format.
+
+:::aeo
+Teaching tip: emphasize pronunciation and short practice drills.
+:::
 :::note
 Based on the introductory curriculum by Prof. Vatsala Misra (IIT Kanpur).
 :::

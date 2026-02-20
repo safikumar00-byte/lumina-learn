@@ -13,6 +13,8 @@ publishDate: 2023-10-10
 
 # What is Basic Sentence Structure (SOV) in Japanese?
 
+This lesson covers the core idea and practical examples in a concise format.
+
 :::note
 Based on the NPTEL course by Prof. Vatsala Misra (IIT Kanpur).
 :::

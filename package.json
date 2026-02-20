@@ -11,6 +11,7 @@
     "content:update-index": "node scripts/update-course-index.cjs",
     "content:check": "node scripts/check_content.cjs",
     "content:watch-index": "node scripts/watch-index.cjs",
+    "content:fix-lint": "node scripts/fix_markdown_lint.cjs",
     "content:autostage": "node scripts/watch-and-stage.cjs"
   },
   "dependencies": {

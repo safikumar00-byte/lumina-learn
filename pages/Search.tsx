@@ -116,7 +116,7 @@ const Search: React.FC = () => {
                 return (
                   <Link
                     key={lesson.id}
-                    to={`/lessons/${course?.slug}/${lesson.slug}`}
+                    to={`/lessons/${(course && course.slug) || lesson.courseId}/${lesson.slug}`}
                     className="flex flex-col md:flex-row md:items-center gap-6 p-6 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-2xl hover:border-black dark:hover:border-white transition-all group"
                   >
                     <div className="w-full md:w-32 aspect-video md:aspect-square bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden flex-shrink-0">

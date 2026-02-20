@@ -13,6 +13,8 @@ publishDate: 2023-11-15
 
 # How does a Blockchain actually work?
 
+This lesson covers the core idea and practical examples in a concise format.
+
 :::definition
 A blockchain is a decentralized, distributed, and digital ledger that records transactions across many computers.
 :::

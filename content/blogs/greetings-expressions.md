@@ -13,6 +13,8 @@ publishDate: 2023-10-05
 
 # What are the essential Japanese Greetings & Expressions?
 
+This lesson covers the core idea and practical examples in a concise format.
+
 :::note
 Greetings in Japan are more than just words; they are an acknowledgement of social hierarchy.
 :::
@@ -34,4 +36,10 @@ The word is **Sumimasen (すみません)**. It is a multi-purpose word used for
 
 :::key
 While _Gomen-nasai_ is a direct apology, _Sumimasen_ is preferred in public settings as it is more formal.
+:::
+
+:::recap
+- Key takeaway 1
+- Key takeaway 2
+- Key takeaway 3
 :::

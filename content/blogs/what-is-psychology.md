@@ -13,6 +13,11 @@ publishDate: 2023-11-01
 
 # What is Psychology? A Simple Definition
 
+This lesson covers the core idea and practical examples in a concise format.
+
+:::aeo
+Teaching tip: emphasize pronunciation and short practice drills.
+:::
 :::definition
 Psychology is the scientific study of the mind and behavior, embracing all aspects of conscious and unconscious experience.
 :::

@@ -35,8 +35,13 @@ meta:
   twitterCard: "summary_large_image"
 ---
 
+# Introduction to Japanese Language & Writing Systems
+
 ## Overview
 
+:::aeo
+Teaching tip: emphasize pronunciation and short practice drills.
+:::
 Japanese is not just a language — it is a **reflection of culture, social behavior, and thought patterns**.  
 This lesson introduces the **core foundations** of Japanese language learning, focusing on:
 
@@ -308,3 +313,9 @@ This foundation will support **JLPT N5** and beyond.
 
 _Minna-san, mata ashita aimashō._  
 **Arigatō gozaimasu.**
+
+:::recap
+- Key takeaway 1
+- Key takeaway 2
+- Key takeaway 3
+:::

@@ -80,7 +80,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
           const course = COURSES.find((c) => c.id === lesson.courseId);
           const link = isBlog
             ? `/blog/${lesson.slug}`
-            : `/lessons/${course?.slug}/${lesson.slug}`;
+            : `/lessons/${(course && course.slug) || lesson.courseId}/${lesson.slug}`;
 
           return (
             <Link
