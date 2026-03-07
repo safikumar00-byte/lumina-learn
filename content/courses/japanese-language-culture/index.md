@@ -10,3 +10,4 @@ slug: japanese-language-culture
 - **Lesson 1:** [Japanese Language Basics: Scripts, Pronunciation & Culture](./introduction-to-japanese-language-and-scripts.md)
 - **Lesson 2:** [How Do You Introduce Yourself in Japanese?](./how-do-you-introduce-yourself-in-japanese.md)
 - **Lesson 3:** [Hiragana M, Y, R Series, Nationalities & Basic Question Patterns](./hiragana-m-y-r-series-nationalities-questions.md)
+- **Lesson 4:** [Understanding Voiced Hiragana Sounds and Basic Japanese Particles](./understanding-voiced-hiragana-sounds-and-basic-japanese-particles.md)

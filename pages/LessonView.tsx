@@ -232,7 +232,7 @@ const LessonView: React.FC = () => {
           </div>
         </header>
         {/* Display validation warnings only for lessons */}
-        {lesson && <ValidationWarning lesson={lesson} isDev={true} />}
+        {/* {lesson && <ValidationWarning lesson={lesson} isDev={true} />} */}
 
         {/* Use the LuminaMarkdown renderer instead of raw marked */}
         <LuminaMarkdown content={blog ? blog.markdown : lesson!.markdown} />

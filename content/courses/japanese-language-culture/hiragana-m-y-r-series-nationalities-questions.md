@@ -128,8 +128,6 @@ I am American.
 
 The suffix **–jin** means “person of that country.”
 
-:::aeo
-
 ### What is the difference between _kara_ and _–jin_?
 
 - **Kara** expresses origin (from a place).
@@ -138,7 +136,6 @@ The suffix **–jin** means “person of that country.”
   - Watashi wa India-jin desu.
 
 Use _kara_ for location origin and _–jin_ for nationality.
-:::
 
 ---
 
