@@ -214,6 +214,7 @@ for (const content of allContent) {
             week: fm.week || 1,
             videoNumber: fm.videoNumber || 0,
         };
+        // console.log("lessonData.keywords", lessonData.keywords);
         lessonDataMap.set(fm.slug, lessonData);
     } else if (fm.type === 'course') {
         const courseData: CourseData = {

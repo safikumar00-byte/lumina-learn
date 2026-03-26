@@ -9,17 +9,55 @@ import {
   Layers,
   ListChecks,
 } from "lucide-react";
+import {
+  ImageBlock,
+  ImageCaptionBlock,
+  ImageQuoteBlock,
+  ImageSplitBlock,
+} from "./ImageBlocks";
+import AssignmentBlock from "./AssignmentBlock";
+import { generateSlug } from "../lib/headingExtractor";
 
 interface LuminaMarkdownProps {
   content: string;
 }
 
+/**
+ * Custom heading renderer for marked.js
+ * Adds id attributes to h2 headings for anchoring
+ */
+const createHeadingRenderer = () => {
+  return (token: any) => {
+    const text = token.text;
+    const level = token.depth;
+
+    // Add id attribute to h2 (level 2) headings only
+    if (level === 2) {
+      const id = generateSlug(text);
+      return `<h${level} id="${id}">${text}</h${level}>`;
+    }
+
+    // Return other headings without modification
+    return `<h${level}>${text}</h${level}>`;
+  };
+};
+
 const LuminaMarkdown: React.FC<LuminaMarkdownProps> = ({ content }) => {
+  // Configure marked with custom heading renderer to add IDs to h2 headings
+  const headingRenderer = createHeadingRenderer();
+  marked.use({
+    renderer: {
+      heading(token: any) {
+        return headingRenderer(token);
+      },
+    },
+  });
+
   // Regex to find and parse :::block ... ::: with flexible whitespace handling
   // Matches: :::type followed by optional blank lines/spaces, content, optional spaces, and closing :::
 
   const blockRegex =
-    /(?:^|\n)\s*:::(note|definition|example|comparison|key|aeo|recap)\s*\n([\s\S]*?)\n\s*:::\s*(?=\n|$)/g;
+    /(?:^|\n)\s*:::(note|definition|example|comparison|key|aeo|recap|image|image-caption|image-quote|image-split|assignment)\s*\n([\s\S]*?)\n\s*:::\s*(?=\n|$)/g;
 
   const renderBlock = (type: string, innerContent: string) => {
     const htmlContent = marked.parse(innerContent) as string;
@@ -149,6 +187,16 @@ const LuminaMarkdown: React.FC<LuminaMarkdownProps> = ({ content }) => {
             />
           </div>
         );
+      case "image":
+        return <ImageBlock content={innerContent} />;
+      case "image-caption":
+        return <ImageCaptionBlock content={innerContent} />;
+      case "image-quote":
+        return <ImageQuoteBlock content={innerContent} />;
+      case "image-split":
+        return <ImageSplitBlock content={innerContent} />;
+      case "assignment":
+        return <AssignmentBlock content={innerContent} />;
       default:
         return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
     }
@@ -180,6 +228,7 @@ const LuminaMarkdown: React.FC<LuminaMarkdownProps> = ({ content }) => {
             "prose-headings:font-semibold prose-headings:leading-tight " +
             "prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg " +
             "prose-p:leading-relaxed prose-p:my-4 prose-strong:text-zinc-900 dark:prose-strong:text-zinc-100 " +
+            "prose-a:text-blue-400 prose-a:hover:text-blue-300 prose-a:transition-colors " +
             "prose-blockquote:border-l-4 prose-blockquote:border-zinc-200 dark:prose-blockquote:border-zinc-700 prose-blockquote:bg-zinc-50 dark:prose-blockquote:bg-zinc-900 prose-blockquote:pl-4 prose-blockquote:italic " +
             "prose-ul:space-y-2 prose-ol:space-y-2 prose-li:marker:text-zinc-600 dark:prose-li:marker:text-zinc-400 " +
             "prose-table:border-collapse prose-table:w-full prose-th:font-medium prose-th:bg-zinc-100 dark:prose-th:bg-zinc-900 prose-td:px-3 prose-th:px-3 prose-tbody:odd:bg-zinc-50 dark:prose-tbody:odd:bg-zinc-900 " +
@@ -213,6 +262,7 @@ const LuminaMarkdown: React.FC<LuminaMarkdownProps> = ({ content }) => {
           "prose-headings:font-semibold prose-headings:leading-tight " +
           "prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg " +
           "prose-p:leading-relaxed prose-p:my-4 prose-strong:text-zinc-900 dark:prose-strong:text-zinc-100 " +
+          "prose-a:text-blue-400 prose-a:hover:text-blue-300 prose-a:transition-colors " +
           "prose-blockquote:border-l-4 prose-blockquote:border-zinc-200 dark:prose-blockquote:border-zinc-700 prose-blockquote:bg-zinc-50 dark:prose-blockquote:bg-zinc-900 prose-blockquote:pl-4 prose-blockquote:italic " +
           "prose-ul:space-y-2 prose-ol:space-y-2 prose-li:marker:text-zinc-600 dark:prose-li:marker:text-zinc-400 " +
           "prose-table:border-collapse prose-table:w-full prose-th:font-medium prose-th:bg-zinc-100 dark:prose-th:bg-zinc-900 prose-td:px-3 prose-th:px-3 prose-tbody:odd:bg-zinc-50 dark:prose-tbody:odd:bg-zinc-900 " +

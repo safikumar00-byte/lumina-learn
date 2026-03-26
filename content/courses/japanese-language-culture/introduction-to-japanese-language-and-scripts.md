@@ -5,12 +5,12 @@ description: "Learn the foundations of Japanese language and culture, including 
 type: "lesson"
 courseSlug: "japanese-language-culture"
 week: 1
-videoNumber: 1
+videoNumber: 3
+order: 3
 level: "Beginner"
 duration: "35 minutes"
 language: "Japanese"
 module: "Japanese Language – Week 1"
-order: 1
 published: true
 author: "Vatsala Maestra"
 lastUpdated: "2026-02-09"
@@ -315,7 +315,8 @@ _Minna-san, mata ashita aimashō._
 **Arigatō gozaimasu.**
 
 :::recap
+
 - Key takeaway 1
 - Key takeaway 2
 - Key takeaway 3
-:::
+  :::

@@ -108,9 +108,229 @@ Content structure & authoring rules
   - `:::definition`
   - `:::aeo` (author/educator notes)
   - `:::recap` (short summary/revision checks)
+- **Image blocks** (NEW): Use special `:::image*` blocks for structured image content (see "Image Blocks" section below).
 - Code: use fenced code blocks with language tags for syntax highlighting.
-- Images: prefer relative paths and include `alt` text; keep images optimized.
+- Images: Images should be placed in `public/images/<course-slug>/` and referenced via absolute paths (`/images/...`). All images require descriptive alt text.
 - Tables: use simple Markdown tables; test readability in both light and dark modes.
+
+## Image Blocks — Structured Image Content
+
+Lumina Learn supports four special image block types for rich, responsive image presentation. Use these instead of standard Markdown `![alt](src)` syntax when you want images to integrate seamlessly with the lesson design system.
+
+### Image Block Types
+
+**1. Standard Image Block (`:::image`)**
+
+Renders a single diagram or illustration with optional caption.
+
+```markdown
+:::image
+src: /images/course-slug/diagram-name.png
+alt: Detailed description of what the image shows (8-15 words)
+caption: Educational context or label
+:::
+```
+
+**Mobile**: Full-width image
+**Desktop**: Constrained max-width with centered layout
+
+---
+
+**2. Caption Image Block (`:::image-caption`)**
+
+Educational figure with styled caption (semantic `<figcaption>`). Use this for textbook-style illustrations where the caption is prominent.
+
+```markdown
+:::image-caption
+src: /images/course-slug/example.png
+alt: Description of the figure content
+caption: The caption explaining the figure
+:::
+```
+
+**Use case**: Key diagrams, linguistic examples, cultural illustrations
+
+---
+
+**3. Quote + Image Block (`:::image-quote`)**
+
+Combines an image with a key insight or principle. The quote is styled as an important educational principle.
+
+```markdown
+:::image-quote
+src: /images/course-slug/concept.png
+alt: Diagram illustrating the concept
+quote: "A memorable principle or insight about the topic."
+author: Source or Principle Name
+:::
+```
+
+**Mobile**: Image stacked above quote
+**Desktop**: Image on left, quote on right (or vice versa)
+
+---
+
+**4. Split Layout Block (`:::image-split`)**
+
+Image and explanatory text side-by-side. Text supports full Markdown formatting.
+
+```markdown
+:::image-split
+src: /images/course-slug/diagram.png
+alt: Detailed description of the diagram
+side: left
+content:
+**Explanation text here.** This is the text that appears beside the image. Supports **bold**, _italic_, and other Markdown formatting. Multiple paragraphs are allowed.
+:::
+```
+
+**Parameters**:
+
+- `side: left` — Image on left, text on right
+- `side: right` — Image on right, text on left
+- `content:` — Markdown-formatted explanatory text
+
+**Mobile**: Image above, text below
+**Desktop**: Side-by-side 50/50 grid
+
+---
+
+### Image Storage & Paths
+
+**Where to store images:**
+
+```
+public/images/
+  course-slug/
+    lesson-slug-1.png
+    lesson-slug-2.webp
+```
+
+**Example paths:**
+
+- `/images/japanese-language-culture/hiragana-guide-1.png`
+- `/images/intro-to-psychology/cognitive-bias-diagram.webp`
+
+**Naming convention:**
+
+- Use `<lesson-slug>-<number>.<ext>` format
+- Example: `understanding-voiced-hiragana-1.png`
+
+**File optimization:**
+
+- PNG: Keep under 500KB
+- WebP: Keep under 200KB (preferred for better compression)
+- Use modern image formats when possible
+
+---
+
+### Alt Text Guidelines
+
+**Required**: All image blocks must have `alt` text. Alt text is **mandatory** and validated during development.
+
+**Good alt text examples:**
+
+- ✅ "Japanese hiragana characters with dakuten marks highlighted"
+- ✅ "Psychology experiment diagram showing cognitive bias example"
+- ✅ "Blockchain consensus mechanism illustrated with 5 blocks"
+
+**Avoid:**
+
+- ❌ "image"
+- ❌ "diagram"
+- ❌ "example"
+- ❌ Empty or single-word descriptions
+
+**Guidelines:**
+
+- **Length**: 8–15 words
+- **Descriptive**: Explain what the image shows, not the file type
+- **Accessible**: Helps screen reader users understand the content
+- **SEO-friendly**: Improves image search indexing
+
+---
+
+### Styling & Responsive Behavior
+
+All image blocks follow Lumina's design system:
+
+- **Dark mode**: Automatically supported via `dark:` Tailwind classes
+- **Spacing**: Consistent with other blocks (`my-8`, `p-6`)
+- **Colors**: Zinc palette (borders, text, backgrounds)
+- **Rounded corners**: `rounded-lg` for modern appearance
+- **Shadows**: Subtle depth via `shadow-sm`
+
+**Responsive design:**
+
+- **Mobile-first**: Images stack vertically, full-width
+- **Desktop** (≥1024px): Side-by-side layouts, constrained widths
+
+---
+
+### Examples from Real Lessons
+
+**Example 1: Standard diagram**
+
+```markdown
+## Japanese Writing Systems
+
+:::image
+src: /images/japanese-language-culture/three-writing-systems.png
+alt: Chart showing Hiragana, Katakana, and Kanji with example characters
+caption: The three Japanese writing systems work together in a sentence
+:::
+```
+
+**Example 2: Key insight with image**
+
+```markdown
+## SOV vs SVO Structure
+
+:::image-quote
+src: /images/japanese-language-culture/sov-structure.png
+alt: Colored diagram comparing English SVO and Japanese SOV word order
+quote: "Japanese places the verb at the sentence's end, creating a context-first communication style."
+author: Linguistic Structure Principle
+:::
+```
+
+**Example 3: Side-by-side explanation**
+
+```markdown
+## Particles: Grammar Markers
+
+:::image-split
+src: /images/japanese-language-culture/particles-example.png
+alt: Sentence diagram showing watashi wa sushi o tabemasu with particles labeled
+side: left
+content:
+In the sentence **"watashi wa sushi o tabemasu"** (I eat sushi):
+
+- **wa (は)** marks the topic (I)
+- **o (を)** marks the direct object (sushi)
+- **tabemasu (食べます)** is the verb (eat)
+
+Particles connect these elements grammatically.
+:::
+```
+
+---
+
+### Validation Rules
+
+Image blocks are validated during development. Errors are reported in the console:
+
+| Rule                       | Severity | Message                                              |
+| -------------------------- | -------- | ---------------------------------------------------- |
+| Missing `src`              | Error    | src parameter is required                            |
+| Missing `alt`              | Error    | alt parameter is required for accessibility          |
+| Alt text too short         | Warning  | Alt text should be 8+ words                          |
+| Alt text generic           | Warning  | Avoid generic descriptions like "image" or "diagram" |
+| Missing `side` in split    | Error    | :::image-split requires side: left or right          |
+| Invalid `side` value       | Error    | side must be 'left' or 'right'                       |
+| Missing `content` in split | Error    | :::image-split requires content field                |
+
+---
 
 Validation rules (lesson-specific)
 

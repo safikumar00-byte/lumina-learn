@@ -36,7 +36,7 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
       {/* Related Articles Section */}
       {relatedBlogs.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-bold font-serif border-b-2 border-black dark:border-white pb-2">
+          <h3 className="text-lg font-bold font-serif border-b-2 border-blue-500 pb-2 text-blue-400">
             Related Articles
           </h3>
           <div className="grid gap-4">
@@ -44,7 +44,7 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
               <Link
                 key={blog.id}
                 to={`/blog/${blog.slug}`}
-                className="group block p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-white transition-all rounded-lg"
+                className="group accent-card bg-white dark:bg-zinc-900 block p-4 rounded-lg transition-all"
               >
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">
@@ -52,10 +52,10 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
                   </span>
                   <Bookmark
                     size={14}
-                    className="text-zinc-300 group-hover:text-black dark:group-hover:text-white transition-colors"
+                    className="text-zinc-300 group-hover:text-blue-400 transition-colors"
                   />
                 </div>
-                <h4 className="font-bold text-sm group-hover:underline line-clamp-2 mb-2">
+                <h4 className="font-bold text-sm group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
                   {blog.title}
                 </h4>
                 <p className="text-xs text-zinc-500 line-clamp-2 mb-3">
@@ -74,7 +74,7 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
                     <Clock size={12} /> 5 min read
                   </span>
                 </div>
-                <div className="flex items-center text-xs font-bold gap-1 text-black dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center text-xs font-bold gap-1 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
                   Read Full Story <ChevronRight size={12} />
                 </div>
               </Link>
@@ -86,7 +86,7 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
       {/* Popular Articles Section */}
       {(popularBlogs.length > 0 || relatedBlogs.length === 0) && (
         <div className="space-y-4">
-          <h3 className="text-lg font-bold font-serif border-b-2 border-black dark:border-white pb-2">
+          <h3 className="text-lg font-bold font-serif border-b-2 border-blue-500 pb-2 text-blue-400">
             {relatedBlogs.length > 0 ? "More From Lumina" : "Popular Articles"}
           </h3>
           <div className="grid gap-4">
@@ -96,14 +96,14 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
                 <Link
                   key={blog.id}
                   to={`/blog/${blog.slug}`}
-                  className="group block p-4 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-white transition-all rounded-lg"
+                  className="group accent-card accent-bg-hover bg-zinc-50 dark:bg-zinc-900/50 block p-4 rounded-lg transition-all"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">
                       Popular
                     </span>
                   </div>
-                  <h4 className="font-bold text-sm group-hover:underline line-clamp-2 mb-2">
+                  <h4 className="font-bold text-sm group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
                     {blog.title}
                   </h4>
                   <p className="text-xs text-zinc-500 line-clamp-2">
@@ -116,8 +116,8 @@ const BlogRecommendationSection: React.FC<BlogRecommendationSectionProps> = ({
       )}
 
       {/* Editor's Pick / Tip Section */}
-      <div className="p-6 bg-gradient-to-br from-black to-zinc-900 dark:from-white dark:to-zinc-100 text-white dark:text-black rounded-2xl">
-        <h4 className="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">
+      <div className="p-6 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-2xl">
+        <h4 className="text-xs font-bold uppercase tracking-widest mb-2 opacity-90">
           💡 Pro Tip
         </h4>
         <p className="text-sm leading-relaxed">

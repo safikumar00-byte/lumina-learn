@@ -5,9 +5,9 @@ slug: "how-do-you-introduce-yourself-in-japanese"
 description: "Learn how to introduce yourself in Japanese using hajimemashite, watashi wa, desu, and basic hiragana."
 courseSlug: "japanese-language-culture"
 week: 1
-videoNumber: 2
+videoNumber: 1
 level: "Beginner"
-order: 2
+order: 1
 publishDate: "2026-02-20"
 keywords:
   - Self introduction in Japanese

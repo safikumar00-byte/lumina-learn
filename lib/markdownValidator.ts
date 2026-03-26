@@ -33,7 +33,7 @@ function parseMarkdown(body: string): { lines: string[]; blocks: Map<string, num
     const blocks = new Map<string, number[]>();
 
     // Find all Lumina blocks (:::type ... :::)
-    const blockRegex = /:::(note|definition|example|comparison|key|aeo|recap)\n+([\s\S]*?)\n\s*:::/g;
+    const blockRegex = /:::(note|definition|example|comparison|key|aeo|recap|image|image-caption|image-quote|image-split)\n+([\s\S]*?)\n\s*:::/g;
     let match;
 
     while ((match = blockRegex.exec(body)) !== null) {
@@ -290,6 +290,107 @@ function validateRecapBlock(body: string, blocks: Map<string, number[]>): Valida
 }
 
 /**
+ * ENFORCEMENT RULE 8: Image Block Validation
+ * Severity: BLOCKING
+ * Enforces structural integrity of image blocks
+ */
+function validateImageBlocks(body: string, blocks: Map<string, number[]>): ValidationError[] {
+    const errors: ValidationError[] = [];
+
+    // Get all image block types
+    const imageBlockTypes = ['image', 'image-caption', 'image-quote', 'image-split'];
+
+    for (const blockType of imageBlockTypes) {
+        if (!blocks.has(blockType)) continue;
+
+        const blockLines = blocks.get(blockType) || [];
+
+        // Find all occurrences of this block type in the body
+        const blockRegex = new RegExp(`:::\\s*${blockType}\\s*\\n([\\s\\S]*?)\\n\\s*:::`, 'g');
+        let match;
+
+        while ((match = blockRegex.exec(body)) !== null) {
+            const blockContent = match[1];
+            const lineNum = body.substring(0, match.index).split('\n').length;
+
+            // Parse block parameters
+            const params: Record<string, string> = {};
+            const contentLines = blockContent.split('\n');
+
+            for (const line of contentLines) {
+                const keyMatch = line.trim().match(/^(\w+):\s*(.*?)$/);
+                if (keyMatch) {
+                    params[keyMatch[1]] = keyMatch[2];
+                }
+            }
+
+            // Validate required parameters
+            if (!params.src) {
+                errors.push({
+                    rule: 'image-block-missing-src',
+                    message: `:::${blockType} block is missing required 'src' parameter. Provide: src: /images/path/to/image.png`,
+                    lineNumber: lineNum,
+                    severity: 'error',
+                });
+            }
+
+            if (!params.alt) {
+                errors.push({
+                    rule: 'image-block-missing-alt',
+                    message: `:::${blockType} block is missing required 'alt' parameter. Provide descriptive alt text (8-15 words).`,
+                    lineNumber: lineNum,
+                    severity: 'error',
+                });
+            } else if (params.alt.length < 5) {
+                errors.push({
+                    rule: 'image-block-alt-too-short',
+                    message: `Alt text is too short: "${params.alt}". Use descriptive text (8-15 words) for accessibility.`,
+                    lineNumber: lineNum,
+                    severity: 'warning',
+                });
+            } else if (params.alt.toLowerCase() === 'image' || params.alt.toLowerCase() === 'diagram') {
+                errors.push({
+                    rule: 'image-block-alt-generic',
+                    message: `Alt text is too generic: "${params.alt}". Describe what the image shows, not the file type.`,
+                    lineNumber: lineNum,
+                    severity: 'warning',
+                });
+            }
+
+            // Type-specific validation
+            if (blockType === 'image-split') {
+                if (!params.side) {
+                    errors.push({
+                        rule: 'image-split-missing-side',
+                        message: `:::image-split block is missing 'side' parameter. Provide: side: left (or right)`,
+                        lineNumber: lineNum,
+                        severity: 'error',
+                    });
+                } else if (params.side !== 'left' && params.side !== 'right') {
+                    errors.push({
+                        rule: 'image-split-invalid-side',
+                        message: `Invalid 'side' value: "${params.side}". Must be 'left' or 'right'.`,
+                        lineNumber: lineNum,
+                        severity: 'error',
+                    });
+                }
+
+                if (!params.content) {
+                    errors.push({
+                        rule: 'image-split-missing-content',
+                        message: `:::image-split block is missing 'content' parameter. Provide descriptive text.`,
+                        lineNumber: lineNum,
+                        severity: 'error',
+                    });
+                }
+            }
+        }
+    }
+
+    return errors;
+}
+
+/**
  * Main validation function
  * Enforces all LUMINA_MARKDOWN_LINT.md rules
  */
@@ -332,6 +433,7 @@ export function validateMarkdown(content: string, slug: string): ValidationResul
     allErrors.push(...validateNoRawHtml(body));
     allErrors.push(...validateAeoBlock(body, blocks));
     allErrors.push(...validateRecapBlock(body, blocks));
+    allErrors.push(...validateImageBlocks(body, blocks));
 
     // Categorize errors
     const blockingErrors = allErrors.filter((e) => e.severity === 'error');

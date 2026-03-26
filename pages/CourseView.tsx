@@ -25,7 +25,9 @@ const CourseView: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <nav className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 mb-6">
-              <Link to="/">Home</Link>
+              <Link to="/" className="accent-link hover:text-blue-400">
+                Home
+              </Link>
               <ChevronRight size={12} />
               <span>Courses</span>
             </nav>
@@ -53,7 +55,7 @@ const CourseView: React.FC = () => {
             </div>
             <Link
               to={`/lessons/${course.slug}/${course.weeks[0]?.lessons[0]?.slug}`}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white dark:bg-white dark:text-black font-bold rounded-lg hover:opacity-80 transition-all shadow-lg"
+              className="btn-accent inline-flex items-center gap-2 shadow-lg"
             >
               <Play size={18} /> Start Learning Now
             </Link>
@@ -105,7 +107,7 @@ const CourseView: React.FC = () => {
                         <Link
                           key={lesson.id}
                           to={`/lessons/${course.slug}/${lesson.slug}`}
-                          className="group flex items-center justify-between p-6 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors border-b last:border-0 border-zinc-100 dark:border-zinc-800"
+                          className="group flex items-center justify-between p-6 hover:bg-blue-500/5 transition-colors border-b last:border-0 border-zinc-100 dark:border-zinc-800"
                         >
                           <div className="flex gap-4">
                             <span className="text-zinc-400 font-serif italic text-lg w-6">
@@ -113,17 +115,21 @@ const CourseView: React.FC = () => {
                             </span>
                             <div>
                               {/* Fix: Access title and description through frontmatter */}
-                              <h4 className="font-bold group-hover:underline">
+                              <h4 className="font-bold group-hover:text-blue-400 transition-colors">
                                 {lesson.frontmatter.title}
                               </h4>
+                              <br />
                               <p className="text-xs text-zinc-500 mt-1">
                                 {lesson.frontmatter.description}
+                              </p>
+                              <p className="text-xs text-zinc-500 mt-1">
+                                {lesson.frontmatter.keywords?.join(", ")}
                               </p>
                             </div>
                           </div>
                           <ChevronRight
                             size={18}
-                            className="text-zinc-300 group-hover:text-black dark:group-hover:text-white transition-colors"
+                            className="text-zinc-300 group-hover:text-blue-400 transition-colors"
                           />
                         </Link>
                       ))}

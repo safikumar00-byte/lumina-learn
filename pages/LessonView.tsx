@@ -17,6 +17,8 @@ import RecommendationSection from "../components/RecommendationSection";
 import BlogRecommendationSection from "../components/BlogRecommendationSection";
 import ValidationWarning from "../components/ValidationWarning";
 import LuminaMarkdown from "../components/LuminaMarkdown";
+import QuickLinks from "../components/QuickLinks";
+import { extractHeadings } from "../lib/headingExtractor";
 
 const LessonView: React.FC = () => {
   const { courseSlug, lessonSlug } = useParams<{
@@ -44,61 +46,64 @@ const LessonView: React.FC = () => {
     ? COURSES.find((c) => c.slug === courseSlug)
     : null;
 
+  console.log("lesson", course);
+
   const prevLesson = lesson && LESSONS.find((l) => l.id === lesson?.prevId);
   const nextLesson = lesson && LESSONS.find((l) => l.id === lesson?.nextId);
 
+  // console.log("[LessonView] prevLesson:", prevLesson);
+  // console.log("[LessonView] nextLesson:", nextLesson);
+  // console.log("[LessonView] course:", course);
+
   useEffect(() => {
-    if (blog) {
-      document.title = `${blog.title} - Lumina Learn`;
+    const data = blog || lesson?.frontmatter;
+    if (!data) return;
 
-      const metaDescription = document.querySelector(
-        'meta[name="description"]',
-      );
-      if (metaDescription) {
-        metaDescription.setAttribute("content", blog.description);
-      } else {
-        const meta = document.createElement("meta");
-        meta.name = "description";
-        meta.content = blog.description;
-        document.head.appendChild(meta);
-      }
+    const title = blog ? blog.title : lesson.frontmatter.title;
+    const description = blog
+      ? blog.description
+      : lesson.frontmatter.description;
+    const canonical = blog
+      ? location.pathname
+      : lesson.frontmatter.canonical || location.pathname;
 
-      const canonicalLink = document.querySelector('link[rel="canonical"]');
-      const canonicalUrl = `https://luminalearn.com${location.pathname}`;
-      if (canonicalLink) {
-        canonicalLink.setAttribute("href", canonicalUrl);
-      } else {
-        const link = document.createElement("link");
-        link.rel = "canonical";
-        link.href = canonicalUrl;
-        document.head.appendChild(link);
-      }
-    } else if (lesson) {
-      document.title = `${lesson.frontmatter.title} - Lumina Learn`;
+    document.title = `${title} - Lumina Learn`;
 
-      const metaDescription = document.querySelector(
-        'meta[name="description"]',
-      );
-      if (metaDescription) {
-        metaDescription.setAttribute("content", lesson.frontmatter.description);
-      } else {
-        const meta = document.createElement("meta");
-        meta.name = "description";
-        meta.content = lesson.frontmatter.description;
-        document.head.appendChild(meta);
-      }
-
-      const canonicalLink = document.querySelector('link[rel="canonical"]');
-      const canonicalUrl = `https://luminalearn.com${lesson.frontmatter.canonical || location.pathname}`;
-      if (canonicalLink) {
-        canonicalLink.setAttribute("href", canonicalUrl);
-      } else {
-        const link = document.createElement("link");
-        link.rel = "canonical";
-        link.href = canonicalUrl;
-        document.head.appendChild(link);
-      }
+    // Description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.setAttribute("name", "description");
+      document.head.appendChild(metaDescription);
     }
+    metaDescription.setAttribute("content", description);
+
+    // Keywords
+    const keywords =
+      blog?.keywords?.join(", ") || lesson?.frontmatter.keywords?.join(", ");
+
+    if (keywords) {
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement("meta");
+        metaKeywords.setAttribute("name", "keywords");
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute("content", keywords);
+    }
+
+    // Canonical
+    const canonicalUrl = `https://luminalearn.com${canonical}`;
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalLink);
+    }
+
+    canonicalLink.setAttribute("href", canonicalUrl);
+
     window.scrollTo(0, 0);
   }, [blog, lesson, location.pathname]);
 
@@ -124,7 +129,7 @@ const LessonView: React.FC = () => {
         <aside className="hidden lg:block w-72 border-r border-zinc-200 dark:border-zinc-800 p-8 h-[calc(100vh-64px)] sticky top-16 overflow-y-auto">
           <Link
             to={`/courses/${course.slug}`}
-            className="flex items-center gap-2 text-zinc-500 hover:text-black dark:hover:text-white mb-8 transition-colors"
+            className="flex items-center gap-2 text-zinc-500 hover:text-blue-400 mb-8 transition-colors"
           >
             <ArrowLeft size={16} />{" "}
             <span className="text-sm font-bold uppercase tracking-widest">
@@ -132,40 +137,56 @@ const LessonView: React.FC = () => {
             </span>
           </Link>
           <div className="space-y-8">
-            {course.weeks.map((week) => (
-              <div key={week.week}>
-                <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">
-                  Week {week.week}
-                </h4>
-                <ul className="space-y-3">
-                  {week.lessons.map((l) => (
-                    <li key={l.id}>
-                      <Link
-                        to={`/lessons/${course.slug}/${l.slug}`}
-                        className={`text-sm block transition-all hover:translate-x-1 ${l.id === lesson.id ? "font-bold text-black dark:text-white border-l-2 border-black dark:border-white pl-3" : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 pl-3"}`}
-                      >
-                        {l.frontmatter.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Course lessons */}
+            <div>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">
+                Course Navigation
+              </h4>
+              {course.weeks.map((week) => (
+                <div key={week.week}>
+                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-3">
+                    Week {week.week}
+                  </h5>
+                  <ul className="space-y-3 mb-4">
+                    {week.lessons.map((l) => (
+                      <li key={l.id}>
+                        <Link
+                          to={`/lessons/${course.slug}/${l.slug}`}
+                          className={`text-sm block transition-all hover:translate-x-1 ${l.slug === lessonSlug ? "text-blue-400 font-medium border-l-2 border-blue-500 bg-blue-500/10 pl-3 rounded-sm" : "text-zinc-500 hover:text-blue-400 pl-3"}`}
+                        >
+                          {l.frontmatter.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         </aside>
       )}
 
       <article className="flex-1 max-w-4xl mx-auto px-4 sm:px-8 py-12 lg:py-16">
         <nav className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 mb-8 overflow-x-auto whitespace-nowrap">
-          <Link to="/" className="flex items-center gap-1">
+          <Link
+            to="/"
+            className="flex items-center gap-1 hover:text-blue-400 transition-colors"
+          >
             <Home size={12} /> Home
           </Link>
           <ChevronRight size={12} />
           {isBlogContext ? (
-            <Link to="/blog">Blog</Link>
+            <Link to="/blog" className="hover:text-blue-400 transition-colors">
+              Blog
+            </Link>
           ) : (
             <>
-              <Link to={`/courses/${course.slug}`}>{course.title}</Link>
+              <Link
+                to={`/courses/${course.slug}`}
+                className="hover:text-blue-400 transition-colors"
+              >
+                {course.slug}
+              </Link>
               <ChevronRight size={12} />
               <span className="text-black dark:text-white">
                 Week {lesson.week}
@@ -187,7 +208,7 @@ const LessonView: React.FC = () => {
               </span>
             )}
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight mb-6 leading-tight">
+          <h1 className="text-2xl md:text-4xl lg:text-4xl font-serif font-bold tracking-tight mb-6 leading-tight">
             {blog ? blog.title : lesson?.frontmatter.title}
           </h1>
           <p className="text-xl text-zinc-500 font-medium leading-relaxed mb-8">
@@ -217,13 +238,13 @@ const LessonView: React.FC = () => {
             </div>
             <div className="flex items-center gap-2">
               <button
-                className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full"
+                className="p-2 hover:bg-blue-500/10 rounded-full transition-colors text-zinc-600 hover:text-blue-400"
                 title="Bookmark"
               >
                 <Bookmark size={20} />
               </button>
               <button
-                className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full"
+                className="p-2 hover:bg-blue-500/10 rounded-full transition-colors text-zinc-600 hover:text-blue-400"
                 title="Share"
               >
                 <Share2 size={20} />
@@ -269,16 +290,16 @@ const LessonView: React.FC = () => {
         )}
 
         {!isBlogContext && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-16 py-12 border-y border-zinc-200 dark:border-zinc-800">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-16 pt-12 border-t border-zinc-200 dark:border-zinc-800">
             {prevLesson ? (
               <Link
                 to={`/lessons/${course.slug}/${prevLesson.slug}`}
-                className="flex flex-col p-6 bg-zinc-50 dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors rounded-xl border border-zinc-200 dark:border-zinc-800"
+                className="flex flex-col p-6 bg-zinc-50 dark:bg-zinc-900 hover:bg-blue-500/5 hover:border-blue-500/50 transition-all rounded-xl border border-zinc-200 dark:border-zinc-800"
               >
                 <span className="text-xs text-zinc-500 font-bold mb-2 flex items-center gap-1 uppercase tracking-widest">
                   <ArrowLeft size={12} /> Previous Lesson
                 </span>
-                <span className="font-bold font-serif">
+                <span className="font-bold font-serif group-hover:text-blue-400">
                   {prevLesson.frontmatter.title}
                 </span>
               </Link>
@@ -288,9 +309,9 @@ const LessonView: React.FC = () => {
             {nextLesson ? (
               <Link
                 to={`/lessons/${course.slug}/${nextLesson.slug}`}
-                className="flex flex-col p-6 bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition-opacity rounded-xl text-right"
+                className="flex flex-col p-6 bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/30 transition-all rounded-xl text-right hover:translate-y-[-2px]"
               >
-                <span className="text-xs opacity-60 font-bold mb-2 flex items-center gap-1 justify-end uppercase tracking-widest">
+                <span className="text-xs opacity-70 font-bold mb-2 flex items-center gap-1 justify-end uppercase tracking-widest">
                   Next Lesson <ArrowRight size={12} />
                 </span>
                 <span className="font-bold font-serif">
@@ -317,10 +338,37 @@ const LessonView: React.FC = () => {
       )}
       {!isBlogContext && lesson && (
         <aside className="hidden xl:block w-80 p-8 h-[calc(100vh-64px)] sticky top-16 overflow-y-auto">
-          <RecommendationSection
-            currentLesson={lesson!}
-            isBlog={isBlogContext}
-          />
+          <div className="space-y-8">
+            {/* Quick Links section */}
+            <QuickLinks headings={extractHeadings(lesson.markdown)} />
+
+            {/* Related Lessons section */}
+            <div>
+              <h3 className="text-xl font-bold font-serif border-b-2 border-blue-500 pb-2 mb-4 text-blue-400">
+                Related Lessons
+              </h3>
+              <div className="grid gap-4">
+                {course.weeks
+                  .flatMap((week) => week.lessons)
+                  .filter((l) => l.slug !== lessonSlug)
+                  .slice(0, 2)
+                  .map((l) => (
+                    <Link
+                      key={l.id}
+                      to={`/lessons/${course.slug}/${l.slug}`}
+                      className="group block p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all rounded-lg"
+                    >
+                      <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold block mb-2">
+                        Week {l.week}
+                      </span>
+                      <span className="font-bold text-sm group-hover:text-blue-400 transition-colors">
+                        {l.frontmatter.title}
+                      </span>
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          </div>
         </aside>
       )}
       {!isBlogContext && lesson && (

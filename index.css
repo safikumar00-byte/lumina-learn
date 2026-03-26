@@ -2,6 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global Accent Colors - Apple-style Blue Gradient */
+:root {
+  --accent-gradient: linear-gradient(135deg, #0ea5e9, #2563eb);
+  --accent-gradient-hover: linear-gradient(135deg, #06b6d4, #1d4ed8);
+  --accent-blue: #2563eb;
+  --accent-blue-light: #0ea5e9;
+  --accent-blue-text: #3b82f6;
+  --accent-blue-muted: #60a5fa;
+}
+
+/* Reusable Accent Utility Classes */
+@layer components {
+  /* Text and Links */
+  .accent-text {
+    @apply text-blue-400;
+  }
+
+  .accent-link {
+    @apply text-zinc-500 hover:text-blue-400 transition-colors;
+  }
+
+  .accent-link-white {
+    @apply text-white hover:text-blue-300 transition-colors;
+  }
+
+  /* Borders and Backgrounds */
+  .accent-border {
+    @apply border-blue-500/30;
+  }
+
+  .accent-border-hover {
+    @apply hover:border-blue-500/50 transition-colors;
+  }
+
+  .accent-bg-hover {
+    @apply hover:bg-blue-500/5 transition-colors;
+  }
+
+  /* Buttons */
+  .btn-accent {
+    @apply bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold rounded-lg px-6 py-3 hover:shadow-lg hover:shadow-blue-500/30 hover:translate-y-[-2px] transition-all;
+  }
+
+  .btn-accent-secondary {
+    @apply border border-blue-500/30 text-blue-400 font-bold rounded-lg px-6 py-3 hover:bg-blue-500/10 hover:border-blue-500/50 transition-colors;
+  }
+
+  /* Cards and Containers */
+  .accent-card {
+    @apply border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all;
+  }
+
+  .accent-card-dark {
+    @apply border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all;
+  }
+
+  /* Interactive Elements */
+  .accent-icon-hover {
+    @apply hover:text-blue-400 transition-colors;
+  }
+
+  .accent-icon-bg {
+    @apply hover:bg-blue-500/10 transition-colors rounded-full;
+  }
+
+  /* Input Focus States */
+  .input-accent {
+    @apply border-zinc-200 dark:border-zinc-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all;
+  }
+}
+
 /* Small theme/typography tweaks kept intentionally minimal; further prose overrides live in components */
 html {
   scroll-behavior: smooth;
@@ -10,4 +81,47 @@ body {
   transition:
     background-color 0.3s,
     color 0.3s;
+}
+
+/* Custom scrollbar styling for sidebars and scrollable elements */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a1a1a1;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #696969;
+}
+
+/* Dark mode scrollbar styling */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: #52525b; /* zinc-600 */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #71717a; /* zinc-500 */
+  }
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-color: #a1a1a1 transparent;
+  scrollbar-width: thin;
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    scrollbar-color: #52525b transparent;
+  }
 }

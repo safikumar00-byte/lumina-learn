@@ -12,7 +12,9 @@ keywords:
   - japanese negative form ja arimasen
   - kanji numbers stroke order
 canonical: /lessons/japanese-language-culture/hiragana-m-y-r-series-nationalities-questions
-order: 3
+week: 1
+videoNumber: 2
+order: 2
 publishDate: 2026-02-13
 thumbnail: /images/japanese-language-culture/hiragana-m-y-r-series-nationalities-questions.webp
 ---

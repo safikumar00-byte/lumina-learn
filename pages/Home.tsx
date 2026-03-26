@@ -27,13 +27,13 @@ const Home: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/search"
-              className="w-full sm:w-auto px-8 py-4 bg-black text-white dark:bg-white dark:text-black font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all text-lg"
+              className="btn-accent w-full sm:w-auto flex items-center justify-center gap-2"
             >
               Browse Courses <ArrowRight size={20} />
             </Link>
             <Link
               to="/about"
-              className="w-full sm:w-auto px-8 py-4 bg-transparent border border-zinc-300 dark:border-zinc-700 font-bold rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all text-lg"
+              className="w-full sm:w-auto px-8 py-4 accent-link-white border border-blue-500/30 font-bold rounded-lg hover:bg-blue-500/10 transition-all text-lg"
             >
               About Philosophy
             </Link>
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
             <Link
               key={course.id}
               to={`/courses/${course.slug}`}
-              className="group flex flex-col bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-zinc-200 dark:hover:shadow-none hover:-translate-y-1 transition-all"
+              className="group flex flex-col accent-card bg-white dark:bg-zinc-900 rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all"
             >
               <div className="aspect-video relative overflow-hidden">
                 <img
@@ -94,7 +94,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold font-serif mb-2 group-hover:underline">
+                <h3 className="text-xl font-bold font-serif mb-2 group-hover:underline group-hover:text-blue-400 transition-colors">
                   {course.title}
                 </h3>
                 <p className="text-zinc-600 dark:text-zinc-400 text-sm line-clamp-2 mb-6 flex-1">
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
                       <Clock size={14} /> Self-Paced
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-bold">
+                  <div className="flex items-center gap-1 text-xs font-bold accent-link">
                     Learn <ArrowRight size={14} />
                   </div>
                 </div>
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
               <Link
                 key={item.label}
                 to={`/search`} // Simplified for mock, normally goes to concept or search results
-                className="px-6 py-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full text-sm font-medium hover:border-black dark:hover:border-white transition-all shadow-sm"
+                className="px-6 py-3 accent-card bg-white dark:bg-zinc-800 rounded-full text-sm font-medium shadow-sm"
               >
                 {item.label}
               </Link>

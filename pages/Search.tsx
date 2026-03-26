@@ -39,16 +39,16 @@ const Search: React.FC = () => {
             placeholder="Search lessons, courses, or concepts..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full px-14 py-5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full outline-none focus:ring-4 focus:ring-black/5 dark:focus:ring-white/5 transition-all shadow-sm text-lg"
+            className="input-accent w-full px-14 py-5 bg-white dark:bg-zinc-900 border rounded-full outline-none text-lg transition-all shadow-sm"
           />
           <SearchIcon
-            className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-400"
+            className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-400 accent-icon-hover"
             size={24}
           />
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="absolute right-6 top-1/2 -translate-y-1/2 p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full"
+              className="absolute right-6 top-1/2 -translate-y-1/2 p-1 accent-icon-bg"
             >
               <X size={20} />
             </button>
@@ -60,7 +60,7 @@ const Search: React.FC = () => {
               <button
                 key={tag}
                 onClick={() => setQuery(tag)}
-                className="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-xs font-bold rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                className="px-3 py-1 accent-card bg-zinc-100 dark:bg-zinc-800 text-xs font-bold rounded-full transition-colors"
               >
                 {tag}
               </button>
@@ -82,7 +82,7 @@ const Search: React.FC = () => {
                   to={`/courses/${c.slug}`}
                   className="block group"
                 >
-                  <span className="text-sm font-bold group-hover:underline">
+                  <span className="text-sm font-bold accent-link group-hover:text-blue-400">
                     {c.title}
                   </span>
                   <span className="block text-[10px] text-zinc-500 uppercase mt-0.5">
@@ -98,7 +98,10 @@ const Search: React.FC = () => {
               We're constantly adding new courses. Reach out if there's a topic
               you'd like us to cover!
             </p>
-            <Link to="/about" className="text-xs font-bold underline">
+            <Link
+              to="/about"
+              className="text-xs font-bold accent-link hover:text-blue-300"
+            >
               Contact Us
             </Link>
           </div>
@@ -117,7 +120,7 @@ const Search: React.FC = () => {
                   <Link
                     key={lesson.id}
                     to={`/lessons/${(course && course.slug) || lesson.courseId}/${lesson.slug}`}
-                    className="flex flex-col md:flex-row md:items-center gap-6 p-6 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-2xl hover:border-black dark:hover:border-white transition-all group"
+                    className="flex flex-col md:flex-row md:items-center gap-6 p-6 accent-card bg-white dark:bg-zinc-900 rounded-2xl transition-all group"
                   >
                     <div className="w-full md:w-32 aspect-video md:aspect-square bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden flex-shrink-0">
                       <img
@@ -137,14 +140,14 @@ const Search: React.FC = () => {
                         </span>
                       </div>
                       {/* Fix: Access title and description through frontmatter */}
-                      <h3 className="text-xl font-bold font-serif mb-2 group-hover:underline">
+                      <h3 className="text-xl font-bold font-serif mb-2 group-hover:text-blue-400 transition-colors">
                         {lesson.frontmatter.title}
                       </h3>
                       <p className="text-sm text-zinc-500 line-clamp-2">
                         {lesson.frontmatter.description}
                       </p>
                     </div>
-                    <ArrowRight className="hidden md:block text-zinc-300 group-hover:text-black dark:group-hover:text-white translate-x-0 group-hover:translate-x-2 transition-all" />
+                    <ArrowRight className="hidden md:block text-zinc-300 group-hover:text-blue-400 translate-x-0 group-hover:translate-x-2 transition-all" />
                   </Link>
                 );
               })

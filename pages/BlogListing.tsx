@@ -46,7 +46,7 @@ const BlogListing: React.FC = () => {
                   </span>
                 </div>
                 <Link to={`/blog/${blog.slug}`}>
-                  <h2 className="text-2xl font-serif font-bold group-hover:underline leading-tight">
+                  <h2 className="text-2xl font-serif font-bold group-hover:text-blue-400 transition-colors leading-tight">
                     {blog.title}
                   </h2>
                 </Link>
@@ -56,7 +56,7 @@ const BlogListing: React.FC = () => {
                 <div className="flex items-center gap-4 mt-auto">
                   <Link
                     to={`/blog/${blog.slug}`}
-                    className="inline-flex items-center gap-2 font-bold text-sm hover:translate-x-1 transition-transform"
+                    className="inline-flex items-center gap-2 font-bold text-sm accent-link group-hover:text-blue-400 transition-all hover:translate-x-1"
                   >
                     Read Full Story <ArrowRight size={16} />
                   </Link>
@@ -81,9 +81,9 @@ const BlogListing: React.FC = () => {
             <input
               type="email"
               placeholder="Your email address"
-              className="w-full p-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl mb-3 outline-none focus:ring-2 focus:ring-black"
+              className="input-accent w-full p-3 bg-white dark:bg-zinc-800 border rounded-xl mb-3 outline-none"
             />
-            <button className="w-full py-3 bg-black text-white dark:bg-white dark:text-black font-bold rounded-xl hover:opacity-90 transition-opacity">
+            <button className="btn-accent w-full py-3 text-white rounded-xl">
               Join Newsletter
             </button>
           </div>

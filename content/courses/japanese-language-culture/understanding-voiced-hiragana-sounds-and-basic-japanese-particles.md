@@ -1,20 +1,21 @@
 ---
-
 type: lesson
 title: "Understanding Voiced Hiragana Sounds and Basic Japanese Particles"
 slug: understanding-voiced-hiragana-sounds-and-basic-japanese-particles
 description: "Learn how voiced Hiragana sounds are formed and how particles like no and mo work in basic Japanese sentences."
 courseSlug: japanese-language-culture
 keywords:
-
-* voiced hiragana
-* japanese particles no and mo
-* japanese beginner grammar
-  canonical: /lessons/japanese-language-culture/understanding-voiced-hiragana-sounds-and-basic-japanese-particles
-  order: 4
-  publishDate: 2026-03-07
-  thumbnail: /images/japanese-language-culture/understanding-voiced-hiragana-sounds-and-basic-japanese-particles.webp
-
+  - voiced hiragana
+  - japanese particles no and mo
+  - japanese beginner grammar
+canonical: /lessons/japanese-language-culture/understanding-voiced-hiragana-sounds-and-basic-japanese-particles
+week: 1
+videoNumber: 5
+order: 5
+publishDate: 2026-03-07F
+thumbnail: /images/japanese-language-culture/understanding-voiced-hiragana-sounds-and-basic-japanese-particles.webp
+prev: hiragana-m-y-r-series-nationalities-questions
+next: how-do-you-introduce-yourself-in-japanese
 ---
 
 # Understanding Voiced Hiragana Sounds and Basic Japanese Particles
@@ -175,42 +176,3 @@ Examples:
   My specialization is chemistry.
 
 Students commonly use this expression when introducing their field of study.
-
----
-
-## Suggested Visual Assets
-
-### Thumbnail Prompt
-
-Educational illustration showing a Hiragana chart with highlighted voiced
-sounds (ga, za, da, ba, pa) alongside simple Japanese grammar particles no and
-mo in a clean modern learning design.
-
-### Inline Diagram Prompts
-
-1. Voiced Hiragana Chart — diagram illustrating how dakuten marks convert
-   ka-row to ga-row and sa-row to za-row.
-
-2. Particle Grammar Diagram — visual showing sentence structure for
-   "noun + no + noun" (possession) and "noun + mo" (also).
-
----
-
-## SEO Summary
-
-Primary Keyword:
-voiced hiragana
-
-Secondary Keywords:
-japanese particle no
-japanese particle mo
-dakuten hiragana
-beginner japanese grammar
-
-Search Intent:
-Learn how voiced Hiragana sounds work and understand the particles no and mo in
-basic Japanese sentences.
-
-Featured Snippet Target:
-Explanation of voiced Hiragana pronunciation changes and beginner particles no
-and mo.

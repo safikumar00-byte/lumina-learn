@@ -72,7 +72,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold font-serif border-b-2 border-black dark:border-white pb-2 mb-4">
+      <h3 className="text-xl font-bold font-serif border-b-2 border-blue-500 pb-2 mb-4 text-blue-400">
         {isBlog ? "Related Articles" : "Course Context"}
       </h3>
       <div className="grid gap-4">
@@ -86,7 +86,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
             <Link
               key={lesson.id}
               to={link}
-              className="group block p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-white transition-all rounded-lg"
+              className="group accent-card bg-white dark:bg-zinc-900 block p-4 rounded-lg transition-all"
             >
               <div className="flex justify-between items-start mb-1">
                 <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">
@@ -95,19 +95,19 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
                 {isBlog && (
                   <Bookmark
                     size={12}
-                    className="text-zinc-300 group-hover:text-black dark:group-hover:text-white"
+                    className="text-zinc-300 group-hover:text-blue-400 transition-colors"
                   />
                 )}
               </div>
               {/* Fix: Access title through frontmatter */}
-              <h4 className="font-bold text-sm group-hover:underline line-clamp-2 mb-1">
+              <h4 className="font-bold text-sm group-hover:text-blue-400 transition-colors line-clamp-2 mb-1">
                 {lesson.frontmatter.title}
               </h4>
               {/* Fix: Access description through frontmatter */}
               <p className="text-xs text-zinc-500 line-clamp-2">
                 {lesson.frontmatter.description}
               </p>
-              <div className="mt-2 flex items-center text-xs font-bold gap-1 text-black dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="mt-2 flex items-center text-xs font-bold gap-1 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
                 {isBlog ? "Read Full Story" : "Jump to Lesson"}{" "}
                 <ChevronRight size={12} />
               </div>
