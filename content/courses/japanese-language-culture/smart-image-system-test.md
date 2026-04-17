@@ -20,7 +20,7 @@ publishDate: 2026-03-07
 This lesson demonstrates all four image block types available in the Smart Image System.
 
 :::aeo
-**What are image blocks?**
+**What are image safikumar blocks?**
 Image blocks are special Markdown sections (:::image, :::image-caption, :::image-quote, :::image-split) that render images within Lumina Learn's design system, supporting responsive layouts, dark mode, and semantic HTML.
 :::
 
